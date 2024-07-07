@@ -1,7 +1,11 @@
 'use client'
 import { useState } from "react";
 import Link from "next/link";
-import { FaChartBar, FaUser, FaLock, FaUsers } from "react-icons/fa";
+import { FaChartBar, FaUser, FaStethoscope } from "react-icons/fa";
+import Dashboard from "./dashboard/page";
+// Importa los componentes correspondientes
+import Tienda from "./tienda/page";
+import AssignRoles from "./AssignRoles/page";
 
 const Navigation = ({ user }) => {
   const [open, setOpen] = useState(false);
@@ -11,24 +15,19 @@ const Navigation = ({ user }) => {
     {
       title: "Dashboard",
       icon: <FaChartBar />,
-      path: "/dashboard",
+      component: <Dashboard />,
       gap: true,
     },
     {
       title: "Roles",
       icon: <FaUser />,
-      path: "/roles",
+      component: <AssignRoles />,
     },
     {
-      title: "Permisos",
-      icon: <FaLock />,
-      path: "/permisos",
+      title: "Tienda",
+      icon: <FaStethoscope />,
+      component: <Tienda />,
       gap: true,
-    },
-    {
-      title: "Asignar Roles",
-      icon: <FaUsers />,
-      path: "/asignar-roles",
     },
   ];
 
@@ -44,19 +43,19 @@ const Navigation = ({ user }) => {
         } duration-300 h-screen p-5 pt-8 bg-blend-darken bg-green-600 relative`}
       >
         <img
-          src="./public/assets/arrow.png"
+          src="/assets/arrow.png"
           className={`absolute cursor-pointer rounded-full right-3 top-9 w-7 border-2 border-dark-purple ${
             !open && "rotate-180"
           }`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex gap-x-4  items-center">
+        <div className="flex gap-x-4 items-center">
           <img
-            src="/home/virtualt/Escritorio/nextJs/lianeabasefront/app/src/assets/arrow.png"
+            src="/assets/elezdev.png"
             className={`cursor-pointer duration-500`}
           />
           <h1
-            className={` text-white origin-left font-medium text-xl duration-300 ${
+            className={`text-white origin-left font-medium text-xl duration-300 ${
               !open && "scale-0"
             }`}
           >
@@ -78,14 +77,10 @@ const Navigation = ({ user }) => {
         </ul>
       </div>
       <div className="p-7 text-2xl font-semibold flex-1 h-screen">
-        {/* Renderizar contenido basado en el índice activo */}
         {Menus.map((menu, index) =>
           index === activeIndex && (
             <div key={index}>
-              <h1>{menu.title}</h1>
-              <Link href={menu.path}>
-                <a>Ir a {menu.title}</a>
-              </Link>
+              {menu.component} {/* Renderiza directamente el componente */}
             </div>
           )
         )}
