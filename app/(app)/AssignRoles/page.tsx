@@ -6,6 +6,7 @@ import { Role } from '@/app/models/rol-model'
 import { Permission } from '@/app/models/permisos-model'
 import Modal from '../../components/customModal'
 import CreaRolpage from '@/app/crearRol/page'
+import Button from '@/app/components/Button'
 
 export default function AssignRoles() {
   const [roles, setRoles] = useState<Role[]>([])
@@ -31,6 +32,18 @@ export default function AssignRoles() {
       })
       .catch(error => console.error(error))
   }, [])
+
+  useEffect(() => {
+    if (selectedRole) {
+      axios
+        .get(`/api/permisos_rol?rol=${selectedRole}`)
+        .then(response => {
+          const permissionsForRole: string[] = response.data
+          setSelectedPermissions(permissionsForRole)
+        })
+        .catch(error => console.error(error))
+    }
+  }, [selectedRole])
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRole(Number(event.target.value))
@@ -68,11 +81,8 @@ export default function AssignRoles() {
           <h1 className="text-2xl font-bold mb-4 text-gray-800">
             Asignar Permisos a Rol
           </h1>
-          <button
-            onClick={handleOpenModal}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Abrir Modal
-          </button>
+      
+          <Button onClick={handleOpenModal} className="ml-3"> Abrir Modal</Button>
         </div>
 
         <div className="mb-4 w-full">

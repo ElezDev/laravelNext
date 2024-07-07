@@ -1,23 +1,21 @@
-import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import "./globals.css";
 
+const nunitoFont = Nunito({
+    subsets: ['latin'],
+    display: 'swap',
+})
 
-const popinsFont = Poppins({ weight: ['400', '600', '700'], subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Bank Website | TarreDev 💸 ',
-  description: 'Follow me for more!',
+const RootLayout = ({ children }) => {
+    return (
+        <html lang="en" className={nunitoFont.className}>
+            <body className="antialiased">{children}</body>
+        </html>
+    )
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="es">
-      <body className={popinsFont.className}>{children}</body>
-    </html>
-  )
+export const metadata = {
+    title: 'Laravel',
 }
+
+export default RootLayout
