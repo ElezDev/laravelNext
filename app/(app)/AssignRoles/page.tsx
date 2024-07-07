@@ -2,30 +2,41 @@
 import { useState, useEffect } from 'react'
 import axios from '../../src/lib/axios'
 import PrincipalLayout from '../../components/PrincipalLayout'
+import { Role } from '@/app/models/rol-model'
+import { Permission } from '@/app/models/permisos-model'
+import Modal from '../../components/customModal'
+import CreaRolpage from '@/app/crearRol/page'
 
 export default function AssignRoles() {
-  const [roles, setRoles] = useState([])
-  const [selectedRole, setSelectedRole] = useState(null)
-  const [permissions, setPermissions] = useState([])
-  const [selectedPermissions, setSelectedPermissions] = useState([])
+  const [roles, setRoles] = useState<Role[]>([])
+  const [selectedRole, setSelectedRole] = useState<number | null>(null)
+  const [permissions, setPermissions] = useState<Permission[]>([])
+  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     axios
       .get('/api/roles')
-      .then(response => setRoles(response.data))
+      .then(response => {
+        const rolesData: Role[] = response.data
+        setRoles(rolesData)
+      })
       .catch(error => console.error(error))
 
     axios
       .get('/api/permisos')
-      .then(response => setPermissions(response.data))
+      .then(response => {
+        const permissionsData: Permission[] = response.data
+        setPermissions(permissionsData)
+      })
       .catch(error => console.error(error))
   }, [])
 
-  const handleRoleChange = event => {
-    setSelectedRole(event.target.value)
+  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRole(Number(event.target.value))
   }
 
-  const handlePermissionToggle = permissionName => {
+  const handlePermissionToggle = (permissionName: string) => {
     setSelectedPermissions(prevSelected => {
       if (prevSelected.includes(permissionName)) {
         return prevSelected.filter(item => item !== permissionName)
@@ -47,12 +58,22 @@ export default function AssignRoles() {
       .catch(error => console.error(error))
   }
 
+  const handleOpenModal = () => setIsModalOpen(true)
+  const handleCloseModal = () => setIsModalOpen(false)
+
   return (
     <PrincipalLayout>
       <div className="">
-        <h1 className="text-2xl font-bold mb-4 text-gray-800">
-          Asignar Permisos a Rol
-        </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold mb-4 text-gray-800">
+            Asignar Permisos a Rol
+          </h1>
+          <button
+            onClick={handleOpenModal}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Abrir Modal
+          </button>
+        </div>
 
         <div className="mb-4 w-full">
           <label
@@ -89,6 +110,11 @@ export default function AssignRoles() {
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Descripción
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Asignar
                 </th>
               </tr>
@@ -100,19 +126,13 @@ export default function AssignRoles() {
                     {permission.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {permission.Descripcion}
+                    {permission.description}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <input
                       type="checkbox"
-                      checked={selectedPermissions.includes(
-                        permission.name,
-                      )}
-                      onChange={() =>
-                        handlePermissionToggle(
-                          permission.name,
-                        )
-                      }
+                      checked={selectedPermissions.includes(permission.name)}
+                      onChange={() => handlePermissionToggle(permission.name)}
                       className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                     />
                   </td>
@@ -127,6 +147,12 @@ export default function AssignRoles() {
           className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4">
           Asignar Permisos
         </button>
+
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Nuevo Modal">
+          <CreaRolpage>
+              
+          </CreaRolpage>
+        </Modal>
       </div>
     </PrincipalLayout>
   )
