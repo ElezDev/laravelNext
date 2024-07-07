@@ -12,14 +12,17 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".", // Asegúrate de tener esta línea
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["app/src/components/*"], // Agrega esta línea
+      "@lib/*": ["app/src/lib/*"] // Ya debería estar en tu configuración
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
