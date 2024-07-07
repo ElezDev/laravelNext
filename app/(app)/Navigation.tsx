@@ -1,97 +1,94 @@
-import Link from 'next/link';
-import { useState } from 'react';
+'use client'
+import { useState } from "react";
+import Link from "next/link";
+import { FaChartBar, FaUser, FaLock, FaUsers } from "react-icons/fa";
 
 const Navigation = ({ user }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  const Menus = [
+    {
+      title: "Dashboard",
+      icon: <FaChartBar />,
+      path: "/dashboard",
+      gap: true,
+    },
+    {
+      title: "Roles",
+      icon: <FaUser />,
+      path: "/roles",
+    },
+    {
+      title: "Permisos",
+      icon: <FaLock />,
+      path: "/permisos",
+      gap: true,
+    },
+    {
+      title: "Asignar Roles",
+      icon: <FaUsers />,
+      path: "/asignar-roles",
+    },
+  ];
+
+  const handleMenuClick = (index) => {
+    setActiveIndex(index);
   };
 
   return (
     <div className="flex">
-      {/* Sidebar */}
       <div
-        className={`bg-gray-800 text-white fixed h-screen transition-all duration-300 z-10 ${
-          isOpen ? 'w-64' : 'w-0'
-        }`}
+        className={`${
+          open ? "w-72" : "w-20"
+        } duration-300 h-screen p-5 pt-8 bg-blend-darken bg-green-600 relative`}
       >
-        {/* Sidebar content */}
-        <div className="flex flex-col items-center">
-          <div className="mt-4">
-            <a
-              href="/dashboard"
-              className="text-white hover:text-gray-300"
-            >
-              Home
-            </a>
-          </div>
-          <div className="mt-4">
-            <a
-              href="/AssignRoles"
-              className="text-white hover:text-gray-300"
-            >
-              Roles
-            </a>
-          </div>
-          <div className="mt-4">
-            <a
-              href="/tienda"
-              className="text-white hover:text-gray-300"
-            >
-              Tienda
-            </a>
-          </div>
-          {/* Add more sidebar items here */}
+        <img
+          src="./public/assets/arrow.png"
+          className={`absolute cursor-pointer rounded-full right-3 top-9 w-7 border-2 border-dark-purple ${
+            !open && "rotate-180"
+          }`}
+          onClick={() => setOpen(!open)}
+        />
+        <div className="flex gap-x-4  items-center">
+          <img
+            src="/home/virtualt/Escritorio/nextJs/lianeabasefront/app/src/assets/arrow.png"
+            className={`cursor-pointer duration-500`}
+          />
+          <h1
+            className={` text-white origin-left font-medium text-xl duration-300 ${
+              !open && "scale-0"
+            }`}
+          >
+            Designer
+          </h1>
         </div>
+        <ul className="pt-6">
+          {Menus.map((menu, index) => (
+            <li
+              className={`text-gray-300 text-sm flex items-center 
+                gap-x-4 cursor-pointer p-2 hover:bg-slate-400 rounded-md ${menu.gap ? "mt-9" : "mt-2"}`}
+              key={index}
+              onClick={() => handleMenuClick(index)}
+            >
+              {menu.icon}
+              <span className={`${!open && "hidden"} origin-left duration-200`}>{menu.title}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      {/* Main content */}
-      <div
-        className={`flex-1 p-4 transition-all duration-300 ${
-          isOpen ? 'ml-64' : 'ml-0'
-        }`}
-        style={{ marginLeft: isOpen ? '250px' : '0' }} // Ajuste adicional para evitar superposición
-      >
-        {/* Button to toggle sidebar */}
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={toggleSidebar}
-        >
-          {/* Toggle icon based on isOpen state */}
-          {isOpen ? (
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          )}
-        </button>
-        {/* Main content area */}
-        <div className="flex flex-col items-start">
-          {/* Your main content here */}
-        </div>
+      <div className="p-7 text-2xl font-semibold flex-1 h-screen">
+        {/* Renderizar contenido basado en el índice activo */}
+        {Menus.map((menu, index) =>
+          index === activeIndex && (
+            <div key={index}>
+              <h1>{menu.title}</h1>
+              <Link href={menu.path}>
+                <a>Ir a {menu.title}</a>
+              </Link>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
