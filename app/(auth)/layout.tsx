@@ -1,12 +1,17 @@
-import Link from 'next/link'
-import AuthCard from '@/app/(auth)/AuthCard'
-import ApplicationLogo from '../components/ApplicationLogo'
+import Link from 'next/link';
+import AuthCard from '@/app/(auth)/AuthCard';
+import ApplicationLogo from '../components/ApplicationLogo';
+import { ReactNode } from 'react';
 
 export const metadata = {
     title: 'Laravel',
+};
+
+interface LayoutProps {
+    children: ReactNode;
 }
 
-const Layout = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <div>
             <div className="text-gray-900 antialiased">
@@ -20,9 +25,7 @@ const Layout = ({ children }) => {
                 </AuthCard>
             </div>
         </div>
-    )
+    );
 }
 
-export default Layout
-
-
+export default Layout;
