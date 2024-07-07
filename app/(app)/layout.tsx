@@ -1,11 +1,16 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { useAuth } from '../hooks/auth'
-import Navigation from '../(app)/Navigation'
+import Navigation from './Navigation'
 import Loading from '@/app/(app)/Loading'
 
-const AppLayout = ({ children }) => {
-    const { user } = useAuth({ middleware: 'auth' })
+interface AppLayoutProps {
+    children: ReactNode
+}
+
+const AppLayout = ({ children }: AppLayoutProps) => {
+    const { user } = useAuth({ middleware: 'auth', redirectIfAuthenticated: false })
 
     if (!user) {
         return <Loading />
