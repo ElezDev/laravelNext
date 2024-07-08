@@ -51,12 +51,15 @@ const GestionRoles: React.FC = () => {
       <div className="container mx-auto p-4">
         <h1 className="text-xl font-bold mb-4">Gestión de Roles</h1>
         <div className="flex justify-end mb-4">
-          <Button onClick={handleOpenModal} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          <Button
+            onClick={handleOpenModal}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
             Crear
           </Button>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200 rounded-lg">
+          <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
             <thead>
               <tr className="bg-gray-100">
                 <th className="py-2 px-3 border-b-2 border-gray-200 text-left text-gray-600 text-sm uppercase tracking-wider">ID</th>
@@ -67,11 +70,11 @@ const GestionRoles: React.FC = () => {
             <tbody>
               {roles.map(role => (
                 <tr key={role.id} className="hover:bg-gray-50">
-                  <td className="py-2 px-3 border-b border-gray-200 text-xl">{role.id}</td>
-                  <td className="py-2 px-3 border-b border-gray-200 text-xl">{role.name}</td>
-                  <td className="py-2 px-3 border-b border-gray-200 text-xl flex space-x-2">
+                  <td className="py-2 px-3 border-b border-gray-200">{role.id}</td>
+                  <td className="py-2 px-3 border-b border-gray-200">{role.name}</td>
+                  <td className="py-2 px-3 border-b border-gray-200">
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm focus:outline-none focus:shadow-outline"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm focus:outline-none focus:shadow-outline mr-2"
                     >
                       Editar
                     </button>
@@ -96,5 +99,3 @@ const GestionRoles: React.FC = () => {
 };
 
 export default GestionRoles;
-
-
