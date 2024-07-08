@@ -161,13 +161,15 @@ export default function AssignRoles() {
         <button
           onClick={handleSubmit}
           className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4"
-        >
+          >
           Asignar Permisos
         </button>
 
         <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Nuevo Modal">
           <CreaRolpage onCloseModal={handleCloseModal} updateRoleList={updateRoleList} />
         </Modal>
+
+        
       </div>
     </PrincipalLayout>
   );

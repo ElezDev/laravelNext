@@ -1,5 +1,5 @@
+'use client'
 import React, { useState } from 'react';
-import PrincipalLayout from '../components/PrincipalLayout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createRole } from '../crearRol/rol.service'; // Lógica de negocio separada

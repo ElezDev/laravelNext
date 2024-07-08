@@ -29,6 +29,13 @@ const Navigation = ({ user }) => {
       gap: true,
       icon: <FaUser />,
     },
+    {
+      name: "Gestion Roles",
+      path: "/GestionRol",
+      gap: true,
+      icon: <FaUser />,
+    },
+
   ];
 
   useEffect(() => {
