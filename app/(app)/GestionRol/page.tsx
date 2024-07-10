@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import PrincipalLayout from '@/app/components/PrincipalLayout';
@@ -53,13 +54,13 @@ const GestionRoles: React.FC = () => {
         <div className="flex justify-end mb-4">
           <Button
             onClick={handleOpenModal}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
           >
             Crear
           </Button>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+          <table className="min-w-full  border border-gray-200 rounded-lg ">
             <thead>
               <tr className="bg-gray-100">
                 <th className="py-2 px-3 border-b-2 border-gray-200 text-left text-gray-600 text-sm uppercase tracking-wider">ID</th>

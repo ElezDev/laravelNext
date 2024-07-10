@@ -1,8 +1,11 @@
+// components/Navigation.tsx
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaChartBar, FaUser, FaStethoscope, FaSignOutAlt } from "react-icons/fa";
-import { useAuth } from '../hooks/auth'
+import { FaSignOutAlt } from "react-icons/fa";
+import { useAuth } from '../hooks/auth';
 import { usePathname } from "next/navigation";
+import menuLinks from "../utils/menuLinks";
+
 
 const Navigation = ({ user }) => {
   const [open, setOpen] = useState(false);
@@ -10,36 +13,8 @@ const Navigation = ({ user }) => {
   const { logout } = useAuth();
   const pathname = usePathname();
 
-  const Links = [
-    {
-      name: "Home",
-      path: "/dashboard",
-      gap: true,
-      icon: <FaChartBar />,
-    },
-    {
-      name: "Tienda",
-      path: "/tienda",
-      gap: true,
-      icon: <FaStethoscope />,
-    },
-    {
-      name: "Roles",
-      path: "/AssignRoles",
-      gap: true,
-      icon: <FaUser />,
-    },
-    {
-      name: "Gestion Roles",
-      path: "/GestionRol",
-      gap: true,
-      icon: <FaUser />,
-    },
-
-  ];
-
   useEffect(() => {
-    const index = Links.findIndex((link) => link.path === pathname);
+    const index = menuLinks.findIndex((link) => link.path === pathname);
     if (index !== -1) {
       setActiveIndex(index);
     }
@@ -72,10 +47,11 @@ const Navigation = ({ user }) => {
             }`}
         >
           Designer
+          {/* <ThemeSwitch></ThemeSwitch> */}
         </h1>
       </div>
       <ul className="pt-6">
-        {Links.map((menu, index) => (
+        {menuLinks.map((menu, index) => (
           <li
             key={index}
             className={`text-white flex items-center gap-x-4 p-2 cursor-pointer rounded-md hover:bg-light-white text-sm ${
