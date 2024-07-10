@@ -7,6 +7,8 @@ import Navigation from "./Navigation";
 import Footer from "../components/fotter/fotterComponents";
 import { ToastContainer } from "react-toastify";
 import { Providers } from "./provider";
+import Navigation2 from "./menuPrueba";
+import NavigationHeader from "./menuPrueba";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -24,11 +26,12 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="flex min-h-screen" >
+        <NavigationHeader user={user} />
+      <body className="flex min-h-screen " >
         <Providers>
           <Navigation user={user} />
           <ToastContainer />
-          <main className="flex-1 p-7 text-2xl font-normal h-screen ">
+          <main className="flex-1  text-2xl font-normal h-screen ">
             {children}
           </main>
         </Providers>
@@ -36,7 +39,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     </html>
   );
 };
-
 export default AppLayout;
 {/* <div className="flex min-h-screen bg-gray-100">
 <Providers>

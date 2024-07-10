@@ -7,6 +7,7 @@ import Modal from '@/app/components/customModal';
 import CreaRolpage from '@/app/crearRol/page';
 import Button from '@/app/components/Button';
 import { deleteRole, getRoles } from '../../crearRol/rol.service';
+import Navigation2 from '../menuPrueba';
 
 const GestionRoles: React.FC = () => {
   const [roles, setRoles] = useState<any[]>([]);
@@ -48,7 +49,9 @@ const GestionRoles: React.FC = () => {
   };
 
   return (
+    
     <PrincipalLayout>
+       
       <div className="container mx-auto p-4">
         <h1 className="text-xl font-bold mb-4">Gestión de Roles</h1>
         <div className="flex justify-end mb-4">

@@ -1,12 +1,13 @@
+'use client'
 import PrincipalLayout from "@/app/components/PrincipalLayout";
 import React from "react";
 
 const Dashboard = () => {
   return (
-
+    <PrincipalLayout>
     <div className="">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {/* Tarjetas superiores */}
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           {/* Tarjeta 1 */}
 
@@ -69,7 +70,7 @@ const Dashboard = () => {
       </div>
     </div>
 
-   
+    </PrincipalLayout>
   );
 };
 
